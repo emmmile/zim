@@ -5,7 +5,7 @@
 #
 # In order for this theme to render correctly, you will need a
 # font with powerline symbols. A simple way to add the powerline
-# symbols is to follow the instructions here: 
+# symbols is to follow the instructions here:
 # https://simplyian.com/2014/03/28/using-powerline-symbols-with-your-current-font/
 #
 # # Goals
@@ -119,7 +119,6 @@ prompt_dir() {
 prompt_status() {
   local symbols
   symbols=()
-  [[ ${RETVAL} -ne 0 ]] && symbols+="%{%F{red}%}${CROSS}"
   [[ ${UID} -eq 0 ]] && symbols+="%{%F{yellow}%}${LIGHTNING}"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}${GEAR}"
 
@@ -138,9 +137,14 @@ prompt_eriner_main() {
   prompt_end
 }
 
+prompt_eriner_right() {
+  [[ ${RETVAL} -ne 0 ]] && symbols+="%{%F{red}%}${CROSS}"
+}
+
 prompt_eriner_precmd() {
   vcs_info
   PROMPT='%{%f%b%k%}$(prompt_eriner_main) '
+  RPROMPT='$(prompt_eriner_right)'
 }
 
 prompt_eriner_setup() {
