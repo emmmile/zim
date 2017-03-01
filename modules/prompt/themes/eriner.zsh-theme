@@ -138,7 +138,11 @@ prompt_eriner_main() {
 }
 
 prompt_eriner_right() {
+  local symbols
+  symbols=()
   [[ ${RETVAL} -ne 0 ]] && symbols+="%{%F{red}%}${CROSS}"
+
+  [[ -n ${symbols} ]] && prompt_segment ${PRIMARY_FG} default " ${symbols} "
 }
 
 prompt_eriner_precmd() {
